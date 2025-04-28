@@ -1,0 +1,77 @@
+/*import { loadQuery } from './js_components/query.js';
+import { loadLatestWork } from './js_components/latestWork.js';
+import { loadTestimonial } from './js_components/testimonial.js';*/
+
+
+const toggleBtn = document.getElementById('toggleBtn');
+const sidebar = document.getElementById('sidebar');
+
+function updateToggleIcon() {
+  const isCollapsed = sidebar.classList.contains('collapsed');
+  toggleBtn.textContent = isCollapsed ? '☰' : '✖';
+}
+
+toggleBtn.addEventListener('click', () => {
+  sidebar.classList.toggle('collapsed');
+  updateToggleIcon();
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const contentArea = document.getElementById("content");
+
+  function loadPage(pages) {
+    contentArea.innerHTML = "<p>Loading...</p>";
+  
+    return fetch(pages)
+      .then(res => res.text())
+      .then(data => {
+        contentArea.innerHTML = data;
+  
+        // After query.html is loaded, dynamically load query.js
+        if (pages.includes("query.html")) {
+          import('./js_components/query.js')
+            .then(module => {
+              module.loadAndRenderQueries(); // Call the exported function
+            })
+            .catch(err => {
+              console.error("Failed to load query.js", err);
+            });
+        }
+
+        if (pages.includes("latestWork.html")) {
+          import('./js_components/latestWork.js')
+            .then(module => {
+              module.loadAndRenderProjects(); // Ensure this function is exported from latest_work.js
+            })
+            .catch(err => {
+              console.error("Failed to load latest_work.js", err);
+            });
+        }
+  
+
+      })
+      .catch(err => {
+        contentArea.innerHTML = "<p>Error loading content</p>";
+        console.error(err);
+      });
+  }
+  
+
+  document.getElementById("link-query").addEventListener("click", (e) => {
+    e.preventDefault();
+    loadPage("pages/query.html");
+  });
+
+  document.getElementById("link-work").addEventListener("click", (e) => {
+    e.preventDefault();
+    loadPage("pages/latestWork.html");
+  });
+
+  document.getElementById("link-testimonials").addEventListener("click", (e) => {
+    e.preventDefault();
+    loadPage("pages/testimonial.html");
+  });
+
+  // Optional: Load default page on startup
+  loadPage("pages/query.html");
+});

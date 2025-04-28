@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dash</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="dashboard">
+    <div id="sidebar" class="sidebar">
+      <div class="toggle-wrapper">
+        <div class="sidebar-heading">Dashboard</div>
+        <button id="toggleBtn" class="toggle-btn">✖</button>
+      </div>
+      
+      <nav class="nav-links">
+        <a href="#" id="link-query"><img src="assets/query.png" width="20px" height="20px"><span class="link-text">Query</span></a>
+        <a href="#" id="link-work"><img src="assets/suitcase.png" width="20px" height="20px"><span class="link-text">Latest Work</span></a>
+        <a href="#" id="link-testimonials"><img src="assets/testimonial.png" width="20px" height="20px"><span class="link-text">Testimonials</span></a>
+      </nav>
+    </div>
+
+    <div class="main-content">
+        <div class="header" id="header">
+          <div class="search">
+            <input type="search" id="search" name="search" placeholder="Search..." />
+          </div>
+          <div class="profile-container">
+            <img src="assets/notification.png" width="20px" height="20px">
+            <img src="assets/profile.png" width="40px" height="40px">
+          </div>
+        </div>
+
+        <div id="content">
+            <!-- Dynamic content will be loaded here -->
+          </div>
+  </div>
+  </div>
+  <script src="main.js"></script>
+  <script src="dist/bundle.js"></script>
+</body>
+</html>
