@@ -1,4 +1,4 @@
-import { db, collection, getDocs,addDoc, CLOUD_NAME, UPLOAD_PRESET } from "./firebase_configuration.js"
+import { db, collection, getDocs, addDoc, deleteDoc, doc, updateDoc, CLOUD_NAME, UPLOAD_PRESET } from "./firebase_configuration.js"
 
 
 const openModalBtn = document.getElementById("openModalBtn");
@@ -35,46 +35,92 @@ async function uploadImage(file) {
   }
 
   const form = document.getElementById("projectForm");
+  let isEditMode = false;
+  let editProjectId = null;
+
+/*Add New Project*/
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
   
     const file = form.image.files[0];
-    if (!file) {
+   /* if (!file) {
       alert("Please select an image");
       return;
-    }
+    }*/
   
     try {
-      const imageUrl = await uploadImage(file);
+      let imageUrl;
+      if (file) {
+        imageUrl = await uploadImage(file);
+      }
   
-      const newProject = {
+      const projectData = {
         title: form.title.value,
         description: form.description.value,
         github: form.github.value,
         live: form.live.value,
-        image: imageUrl,
-        createdAt: new Date()
+        ...(imageUrl && { image: imageUrl }), // Only update image if new one selected
+        updatedAt: new Date()
       };
+  /*
+      if (isEditMode && editProjectId) {
+        const projectRef = doc(db, "projects", editProjectId);
+        await updateDoc(projectRef, projectData);
   
-      await addDoc(collection(db, "projects"), newProject); // ✅ Modular Firestore
+        console.log("Project updated!");
+      } else {
+        const fileRequired = !file; 
+        if (fileRequired) {
+          alert("Please select an image for a new project");
+          return;
+        }
+        projectData.image = imageUrl;
+        projectData.createdAt = new Date();
+        await addDoc(collection(db, "projects"), projectData);
   
-      console.log("Project added!");
-      form.reset();
-      loadAndRenderProjects(); // your function to re-render cards
-    } catch (err) {
+        console.log("Project added!");
+      }*/
+
+        if (isEditMode && editProjectId) {
+          const projectRef = doc(db, "projects", editProjectId);
+          await updateDoc(projectRef, projectData);
+          console.log("Project updated!");
+          alert("Project updated successfully!");
+        } else {
+          if (!file) {
+            alert("Please select an image for a new project");
+            return;
+          }
+          projectData.image = imageUrl;
+          projectData.createdAt = new Date();
+          await addDoc(collection(db, "projects"), projectData);
+          console.log("Project added!");
+          alert("Project added successfully!");
+          setTimeout(() => {
+            modal.classList.add('hidden');
+            form.reset();
+          }, 500);
+          isEditMode = false;
+          editProjectId = null;
+          await loadAndRenderProjects();
+          
+    } 
+  }
+    catch (err) {
       console.error("Error adding project:", err);
       alert("Failed to add project.");
     }
   });
 
+  
 export async function loadAndRenderProjects(){
   const querySnapshot = await getDocs(collection(db, "projects"));
-  const projects = querySnapshot.docs.map(doc => doc.data());
+  const projects = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
   const container = document.getElementById("projects-container");
   container.innerHTML = projects.map(project => `
-    <div class="project-card">
+    <div class="project-card" data-id="${project.id}">
       <img src="${project.image}" alt="Project" class="project-image" />
       <div class="project-info">
         <h3 class="project-title">${project.title}</h3>
@@ -84,80 +130,113 @@ export async function loadAndRenderProjects(){
           <a href="${project.live}" target="_blank" class="live">LIVE LINK</a>
         </div> 
         <div class="edit">
-            <button class="view btn"><img src="../assets/view.png" class="edit-btn">  View</button>
-            <button class="view btn"><img src="../assets/edit.png" class="edit-btn">  Edit</button>
-            <button class="view btn"><img src="../assets/delete.png" class="edit-btn"></button>
-          </div>
+          <button class="view btn"><img src="../assets/view.png" class="view-btn">  View</button>
+          <button class="edit-project-btn btn" data-id="${project.id}">
+            <img src="../assets/edit.png" class="edit-btn">  Edit
+          </button>
+         <button  class="delete btn" data-id="${project.id}">
+            <img src="../assets/delete.png" class="delete-btn">
+          </button>
+        </div>
       </div>
     </div>
   `).join("");
 }
 
-/*
-export async function loadAndRenderProjects() {
-    const projects = [
-        {
-            title: "Library Solutions",
-            image: "../assets/library.jpeg",
-            description: "They streamline library operations and improve user experience.",
-            github: "https://github.com/Anupam0329/Library",
-            live: "https://anupam0329.github.io/Library/"
-          },
-          {
-            title: "Tic Tac Toe Game",
-            image: "../assets/TTT.jpeg",
-            description: "Tic Tac Toe is a simple two-player game where players take turns marking X or O on a 3×3 grid.",
-            github: "https://github.com/Anupam0329/Tic-Tac-Toe",
-            live: "https://anupam0329.github.io/Tic-Tac-Toe/"
-          },
-          {
-            title: "Calculator",
-            image: "../assets/calc.jpeg",
-            description: "It simplifies mathematical calculations, ranging from simple to complex, with user-friendly interfaces.",
-            github: "https://github.com/Anupam0329/calculator",
-            live: "https://anupam0329.github.io/calculator/"
-          },
-          {
-            title: "Admin Dashboard",
-            image: "../assets/Admin login illustration.jpeg",
-            description: "An admin page provides a central dashboard for managing and monitoring system activities and user data.",
-            github: "https://github.com/Anupam0329/Admin-Dashboard",
-            live: "https://anupam0329.github.io/Admin-Dashboard/"
-          },
-          {
-            title: "Landing Page",
-            image: "../assets/landing-page.jpeg",
-            description: "A landing page is a standalone web page designed to capture visitors’ attention and encourage specific actions.",
-            github: "https://github.com/Anupam0329/landing-page",
-            live: "https://anupam0329.github.io/landing-page/"
-          },
-          {
-            title: "Etch-a-sketch",
-            image: "../assets/sketch.jpeg",
-            description: "It offers a simple, fun way to sketch and erase designs, making it a timeless hands-on creative tool.",
-            github: "https://github.com/Anupam0329/Etch-a-sketch",
-            live: "https://anupam0329.github.io/Etch-a-sketch/"
-          }
-    ];
-  
-    const container = document.getElementById("projects-container");
-    container.innerHTML = projects.map(project => `
-      <div class="project-card">
-        <img src="${project.image}" alt="Project" class="project-image" />
-        <div class="project-info">
-          <h3 class="project-title">${project.title}</h3>
-          <p class="project-categories">${project.description}</p>
-          <div class="repos">
-            <a href="${project.github}" target="_blank"><img src="../assets/github.png" class="card-icon git"></a>
-            <a href="${project.live}" target="_blank" class="live">LIVE LINK</a>
-          </div> 
-          <div class="edit">
-            <button class="view btn"><img src="../assets/view.png">  View</button>
-            <button class="view btn"><img src="../assets/edit.png">  Edit</button>
-            <button class="view btn"><img src="../assets/delete.png">/button>
-          </div>
-        </div>
-      </div>
-    `).join("");
+//  View Modal 
+document.addEventListener("click", (e) => {
+  if (e.target.closest(".view")) {
+    const card = e.target.closest(".project-card");
+    const title = card.querySelector(".project-title").textContent;
+    const description = card.querySelector(".project-categories").textContent;
+    const image = card.querySelector("img.project-image").src;
+   
+    // Fill the view modal
+    document.getElementById("viewTitle").textContent = title;
+    document.getElementById("viewDescription").textContent = description;
+    document.getElementById("viewImage").src = image;
+
+    // Show the modal
+    document.getElementById("viewModal").classList.remove("hidden");
   }
-  */
+});
+
+// Close modal
+document.getElementById("closeViewModal").addEventListener("click", () => {
+  document.getElementById("viewModal").classList.add("hidden");
+});
+
+window.addEventListener("click", (e) => {
+  if (e.target === document.getElementById("viewModal")) {
+    document.getElementById("viewModal").classList.add("hidden");
+  }
+});
+
+// Edit The Card
+
+// Edit Project Card
+document.addEventListener("click", async (e) => {
+  const editBtn = e.target.closest(".edit-project-btn");
+
+  if (editBtn) {
+    const projectId = editBtn.getAttribute("data-id");
+
+    try {
+      const projectRef = doc(db, "projects", projectId);
+      const projectSnap = await getDocs(projectRef);
+
+      if (projectSnap.exists()) {
+        const projectData = projectSnap.data();
+
+        // Set Edit Mode ON
+        isEditMode = true;
+        editProjectId = projectId;
+
+        // Pre-fill form values
+        form.title.value = projectData.title || '';
+        form.description.value = projectData.description || '';
+        form.github.value = projectData.github || '';
+        form.live.value = projectData.live || '';
+
+        // Image won't be displayed in file input (browser security), so no need to fill that
+        form.image.removeAttribute('required'); // Make image optional when editing
+
+        // Open modal
+        modal.classList.remove('hidden');
+
+      } else {
+        alert("Project not found!");
+      }
+    } catch (error) {
+      console.error("Error fetching project for edit:", error);
+      alert("Failed to load project for editing.");
+    }
+  }
+});
+
+
+
+
+//Delete the Card
+
+document.addEventListener("click", async (e) => {
+  const deleteBtn = e.target.closest(".delete");
+
+  if (deleteBtn) {
+    const projectId = deleteBtn.getAttribute("data-id");
+
+    const confirmDelete = confirm("Are you sure you want to delete this project?");
+    if (!confirmDelete) return;
+
+    try {
+      await deleteDoc(doc(db, "projects", projectId));
+      alert("Project deleted!");
+
+      // Refresh the projects UI
+      await loadAndRenderProjects();
+    } catch (err) {
+      console.error("Error deleting project:", err);
+      alert("Failed to delete project");
+    }
+  }
+});

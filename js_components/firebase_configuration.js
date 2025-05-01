@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
-import { getFirestore, collection, getDocs, addDoc } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+import { getFirestore, collection, doc, getDoc, addDoc, deleteDoc, updateDoc,getDocs } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -24,4 +24,4 @@ const CLOUD_NAME = 'dqhroqlaa';
 const UPLOAD_PRESET = 'my_unsigned_preset';
 
 
-export { db, collection, getDocs, addDoc, CLOUD_NAME, UPLOAD_PRESET };
+export { db, collection, getDoc, doc, addDoc,getDocs, deleteDoc, updateDoc, CLOUD_NAME, UPLOAD_PRESET };
