@@ -1,4 +1,4 @@
-import { db, collection, getDocs, addDoc, deleteDoc, doc, updateDoc, CLOUD_NAME, UPLOAD_PRESET } from "./firebase_configuration.js"
+import { db, collection,getDoc, getDocs, addDoc, deleteDoc, doc, updateDoc, CLOUD_NAME, UPLOAD_PRESET } from "./firebase_configuration.js"
 
 
 const openModalBtn = document.getElementById("openModalBtn");
@@ -172,7 +172,6 @@ window.addEventListener("click", (e) => {
   }
 });
 
-// Edit The Card
 
 // Edit Project Card
 document.addEventListener("click", async (e) => {
@@ -183,7 +182,7 @@ document.addEventListener("click", async (e) => {
 
     try {
       const projectRef = doc(db, "projects", projectId);
-      const projectSnap = await getDocs(projectRef);
+      const projectSnap = await getDoc(projectRef);
 
       if (projectSnap.exists()) {
         const projectData = projectSnap.data();
@@ -214,6 +213,13 @@ document.addEventListener("click", async (e) => {
   }
 });
 
+closeModalBtn.addEventListener("click", () => {
+  modal.classList.add("hidden");
+  isEditMode = false;
+  editProjectId = null;
+  form.reset();
+  form.image.setAttribute("required", "true");
+});
 
 
 

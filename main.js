@@ -1,7 +1,3 @@
-/*import { loadQuery } from './js_components/query.js';
-import { loadLatestWork } from './js_components/latestWork.js';
-import { loadTestimonial } from './js_components/testimonial.js';*/
-
 
 const toggleBtn = document.getElementById('toggleBtn');
 const sidebar = document.getElementById('sidebar');
@@ -42,6 +38,16 @@ document.addEventListener("DOMContentLoaded", () => {
           import('./js_components/latestWork.js')
             .then(module => {
               module.loadAndRenderProjects(); // Ensure this function is exported from latest_work.js
+            })
+            .catch(err => {
+              console.error("Failed to load latest_work.js", err);
+            });
+        }
+
+        if (pages.includes("testimonial.html")) {
+          import('./js_components/testimonial.js')
+            .then(module => {
+              module.loadTestimonials(); // Ensure this function is exported from latest_work.js
             })
             .catch(err => {
               console.error("Failed to load latest_work.js", err);

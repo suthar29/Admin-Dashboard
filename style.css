@@ -425,6 +425,51 @@ body, html {
   width: 16px;
   height: 16px;
 }
+
+/* Testimonials*/
+
+.testimonial-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.testimonial-card {
+  flex: 1 1 300px;
+  max-width: 320px;
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.testimonial-text {
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+.author {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.author-image img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.author-info {
+  flex: 1;
+}
+
+.star-rating span {
+  color: rgb(43, 43, 42);
+}
+
+
 /*
 .edit{
   display: flex;
