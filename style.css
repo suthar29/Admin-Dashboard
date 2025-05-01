@@ -109,7 +109,8 @@ body, html {
   padding: 10px;
   margin: 20px;
   overflow-y: auto;
-  background-color: #d7eff4;
+  /*background-color: #d7eff4;*/
+  background-color: #babfc0;
   border-radius: 10px;
   box-shadow:  10px 10px 8px #888888;
 }
@@ -180,7 +181,7 @@ body, html {
 .card{
   display: flex;
   justify-content: space-between;
-  border: 2px solid #ccc;
+  border: 2px solid #ecf0f1;
   border-radius: 5px;
   padding: .5rem;
   transition: border-width 0.3s ease, border-color 0.3s ease;
@@ -231,7 +232,7 @@ body, html {
   background-color: rgb(22, 163, 74);
   color: white;
   font-weight: 600;
-  padding: -5px 10px;
+  padding:10px 10px;
   font-size: 1rem;
   height: 40px;
   border-style: none;
@@ -254,7 +255,7 @@ body, html {
 .project-card {
   flex-direction: column;
   justify-content: space-between;
-  background-color: #9cd0e4;
+  background-color: #ecf0f1;
   padding: 10px;
   border-radius: 20px;
   flex: 0 0 calc(31% - 14px);
@@ -305,7 +306,7 @@ body, html {
 .live{
   color: #fff;
   cursor: pointer;
-  background-color: #df3636;
+  background-color: #df4747;
   padding: 5px 10px;
   font-size: 15px;
   font-weight: 700;
@@ -313,7 +314,9 @@ body, html {
   text-decoration: none;
   border-radius: 10px;
 }
-
+.live:hover{
+  background-color:#e20b0b;
+}
 /* Modal backdrop */
 .modal {
   position: fixed;
@@ -337,7 +340,7 @@ body, html {
 
 /* Modal content container */
 .modal-content {
-  background: #faf9f6;
+  background: #e9e7e4;
   padding: 2rem;
   width: 90%;
   max-width: 300px;
@@ -353,7 +356,8 @@ body, html {
   top: .5rem;
   right: .5rem;
   font-size: 1.5rem;
-  color: #333;
+  font-weight: bold;
+  color: #a50505;
   cursor: pointer;
 }
 
@@ -410,6 +414,7 @@ body, html {
   gap: 5px; /* space between icon and text */
   background:transparent;
   padding: 8px 12px;
+  border: 1px solid #babfc0;
   border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.2s;
@@ -417,7 +422,7 @@ body, html {
 }
 
 .edit .btn:hover {
-  background-color: grey;
+  background-color: #babfc0;
   font-weight: 700;
 }
 
@@ -436,6 +441,9 @@ body, html {
 }
 
 .testimonial-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   flex: 1 1 300px;
   max-width: 320px;
   background: #f9f9f9;
@@ -446,7 +454,7 @@ body, html {
 
 .testimonial-text {
   font-size: 14px;
-  margin-bottom: 15px;
+  /*margin-bottom: 15px;*/
 }
 
 .author {
@@ -462,34 +470,16 @@ body, html {
 }
 
 .author-info {
-  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
 
 .star-rating span {
   color: rgb(43, 43, 42);
+  font-size: 1.5rem;
 }
 
-
-/*
-.edit{
-  display: flex;
-  gap: 10px;
-  justify-content: end;
-}
-
-.btn{
-  background: transparent;
-  border-radius: 5px;
-  font-size: 1rem;
-  padding: 3px 5px;
-}
-.btn:hover{
-  cursor: pointer;
-}
-.edit-btn{
-  align-items: center;
-  width: 1rem;
-}*/
 /* Animation for modal */
 @keyframes fadeIn {
   from {

@@ -1,4 +1,4 @@
-import { db, collection,getDoc, getDocs, addDoc, deleteDoc, doc, updateDoc, CLOUD_NAME, UPLOAD_PRESET } from "./firebase_configuration.js"
+import { db, collection, getDoc, getDocs, addDoc, deleteDoc, doc, updateDoc, CLOUD_NAME, UPLOAD_PRESET } from "./firebase_configuration.js"
 
 
 const openModalBtn = document.getElementById("openModalBtn");
@@ -44,10 +44,6 @@ async function uploadImage(file) {
     e.preventDefault();
   
     const file = form.image.files[0];
-   /* if (!file) {
-      alert("Please select an image");
-      return;
-    }*/
   
     try {
       let imageUrl;
@@ -63,30 +59,16 @@ async function uploadImage(file) {
         ...(imageUrl && { image: imageUrl }), // Only update image if new one selected
         updatedAt: new Date()
       };
-  /*
-      if (isEditMode && editProjectId) {
-        const projectRef = doc(db, "projects", editProjectId);
-        await updateDoc(projectRef, projectData);
-  
-        console.log("Project updated!");
-      } else {
-        const fileRequired = !file; 
-        if (fileRequired) {
-          alert("Please select an image for a new project");
-          return;
-        }
-        projectData.image = imageUrl;
-        projectData.createdAt = new Date();
-        await addDoc(collection(db, "projects"), projectData);
-  
-        console.log("Project added!");
-      }*/
 
         if (isEditMode && editProjectId) {
           const projectRef = doc(db, "projects", editProjectId);
           await updateDoc(projectRef, projectData);
           console.log("Project updated!");
           alert("Project updated successfully!");
+          setTimeout(() => {
+            modal.classList.add('hidden');
+            form.reset();
+          }, 500);
         } else {
           if (!file) {
             alert("Please select an image for a new project");
@@ -212,15 +194,6 @@ document.addEventListener("click", async (e) => {
     }
   }
 });
-
-closeModalBtn.addEventListener("click", () => {
-  modal.classList.add("hidden");
-  isEditMode = false;
-  editProjectId = null;
-  form.reset();
-  form.image.setAttribute("required", "true");
-});
-
 
 
 //Delete the Card
