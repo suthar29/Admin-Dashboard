@@ -81,3 +81,43 @@ document.addEventListener("DOMContentLoaded", () => {
   // Optional: Load default page on startup
   loadPage("pages/query.html");
 });
+
+let deferredPrompt;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  // Prevent default install banner
+  e.preventDefault();
+  deferredPrompt = e;
+
+  // Check if app is already installed
+  if (window.matchMedia('(display-mode: standalone)').matches) {
+    return; // Don't show if already installed
+  }
+
+  // Show custom install prompt
+  showInstallDialog();
+});
+
+function showInstallDialog() {
+  const dialog = document.getElementById('installPrompt');
+  dialog.style.display = 'block';
+
+  document.getElementById('installBtn').addEventListener('click', async () => {
+    dialog.style.display = 'none';
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      if (outcome === 'accepted') {
+        console.log('User accepted the install prompt');
+      } else {
+        console.log('User dismissed the install prompt');
+      }
+      deferredPrompt = null;
+    }
+  });
+
+  document.getElementById('cancelBtn').addEventListener('click', () => {
+    dialog.style.display = 'none';
+    deferredPrompt = null;
+  });
+}

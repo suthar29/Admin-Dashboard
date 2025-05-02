@@ -485,6 +485,61 @@ body, html {
   font-size: 1.5rem;
 }
 
+/*Install Prompt*/
+
+#installPrompt {
+  display: none;
+  position: fixed;
+  bottom: 15rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  width: 90%;
+  max-width: 350px;
+  text-align: center;
+  font-family: sans-serif;
+}
+
+#installPrompt p {
+  margin: 0 0 1rem;
+  font-size: 1rem;
+  color: #333;
+}
+
+#installPrompt button {
+  padding: 0.5rem 1.2rem;
+  font-size: 0.95rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 0 0.5rem;
+  transition: background-color 0.3s ease;
+}
+
+#installBtn {
+  background-color: #007bff;
+  color: white;
+}
+
+#installBtn:hover {
+  background-color: #0056b3;
+}
+
+#cancelBtn {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+#cancelBtn:hover {
+  background-color: #cfcfcf;
+}
+
+
 /* Animation for modal */
 @keyframes fadeIn {
   from {

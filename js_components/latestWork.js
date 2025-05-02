@@ -108,16 +108,16 @@ export async function loadAndRenderProjects(){
         <h3 class="project-title">${project.title}</h3>
         <p class="project-categories">${project.description}</p>
         <div class="repos">
-          <a href="${project.github}" target="_blank"><img src="../assets/github.png" class="card-icon git"></a>
+          <a href="${project.github}" target="_blank"><img src="./assets/github.png" class="card-icon git"></a>
           <a href="${project.live}" target="_blank" class="live">LIVE LINK</a>
         </div> 
         <div class="edit">
-          <button class="view btn"><img src="../assets/view.png" class="view-btn">  View</button>
+          <button class="view btn"><img src="./assets/view.png" class="view-btn">  View</button>
           <button class="edit-project-btn btn" data-id="${project.id}">
-            <img src="../assets/edit.png" class="edit-btn">  Edit
+            <img src="./assets/edit.png" class="edit-btn">  Edit
           </button>
          <button  class="delete btn" data-id="${project.id}">
-            <img src="../assets/delete.png" class="delete-btn">
+            <img src="./assets/delete.png" class="delete-btn">
           </button>
         </div>
       </div>

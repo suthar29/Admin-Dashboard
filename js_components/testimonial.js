@@ -116,10 +116,10 @@ export async function loadTestimonials(testimonials) {
         </div>
         <div class="edit">
           <button class="edit-project-btn btn" data-id="${t.id}">
-            <img src="../assets/edit.png" class="edit-btn">  Edit
+            <img src="./assets/edit.png" class="edit-btn">  Edit
           </button>
          <button  class="delete btn" data-id="${t.id}">
-            <img src="../assets/delete.png" class="delete-btn">
+            <img src="./assets/delete.png" class="delete-btn">
           </button>
         </div>
       </div>

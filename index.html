@@ -6,6 +6,13 @@
   <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
   <link rel="stylesheet" href="style.css">
   <link rel="manifest" href="manifest.json" />
+  <script>
+   if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('service-worker.js')
+    .then(() => console.log('Service Worker registered'))
+    .catch((error) => console.error('Service Worker registration failed:', error));
+}
+  </script>
 </head>
 <body>
   <div class="dashboard">
@@ -37,6 +44,11 @@
             <!-- Dynamic content will be loaded here -->
           </div>
   </div>
+  </div>
+  <div id="installPrompt">
+    <p>Would you like to install this app?</p>
+    <button id="installBtn">Install</button>
+    <button id="cancelBtn">No, thanks</button>
   </div>
   <script src="main.js"></script>
   <script src="dist/bundle.js"></script>
