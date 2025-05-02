@@ -13,6 +13,11 @@ body, html {
   min-height: 100vh;
 }
 
+.dp{
+  width: 40px;
+  border-radius: 50%;
+}
+
 /* Sidebar */
 .sidebar {
   background-color: #ecf0f1;
