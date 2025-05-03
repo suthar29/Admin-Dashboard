@@ -1,4 +1,4 @@
-
+//import { messaging, getToken } from './js_components/firebase_configuration.js';
 const toggleBtn = document.getElementById('toggleBtn');
 const sidebar = document.getElementById('sidebar');
 
@@ -81,6 +81,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // Optional: Load default page on startup
   loadPage("pages/query.html");
 });
+
+// Install Prompt
 
 let deferredPrompt;
 
