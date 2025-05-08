@@ -15,5 +15,6 @@
         "type":"image/png"
         }
     ],
-"gcm_sender_id": "886849041281"
+    "permissions": ["notifications"],
+    "gcm_sender_id": "103953800507" 
 }

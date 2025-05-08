@@ -13,14 +13,6 @@
     .then(() => console.log('Service Worker registered'))
     .catch((error) => console.error('Service Worker registration failed:', error));
 }
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('firebase-messaging-sw.js')
-      .then((reg) => {
-        console.log("✅ Service Worker registered");
-      }).catch((err) => {
-        console.error("❌ SW registration failed", err);
-      });
-  }
   </script>
 </head>
 <body>
