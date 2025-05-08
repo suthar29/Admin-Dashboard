@@ -72,7 +72,7 @@ async function setupFCM() {
               const title = "📩 New Query Received";
               const options = {
                 body: `${docData.name || "Someone"} submitted a new query.`,
-                icon: "/icons/icon-192.png"
+                icon: "assets/query.png"
               };
   
               if (Notification.permission === "granted") {
