@@ -30,6 +30,7 @@ body, html {
   position: fixed;
   left: 0;
   top: 0;
+  z-index: 999;
 }
 
 .sidebar.collapsed {
@@ -91,6 +92,8 @@ body, html {
 .sidebar.collapsed .link-text {
   display: none;
 }
+
+
 
 /* Base sidebar styles *
 .sidebar {
@@ -216,12 +219,6 @@ Collapsed sidebar
   align-items: center;
 }
 
-.search input {
-  padding: 8px 12px;
-  width: 100%;
-  max-width: 300px;
-}
-
 .container{
   display: flex;
   flex-direction: column;
@@ -266,6 +263,7 @@ Collapsed sidebar
 .card{
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   border: 2px solid #ecf0f1;
   border-radius: 5px;
   padding: .5rem;
@@ -283,7 +281,7 @@ Collapsed sidebar
 }
 
 .time-stamp{
-  margin-top: 130px;
+  margin-top: 200px;
 }
 
 .card-icon{
@@ -640,6 +638,30 @@ Collapsed sidebar
 
   .close {
     font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%);
+  }
+
+  .pagination{
+    justify-content: center;
+  }
+
+.time-stamp{
+  margin-top: 10px;
+}
+  
+  .sidebar.open {
+    transform: translateX(0);
+    z-index: 10;
+  }
+
+  .main-content {
+    margin-left: 0;
+    width: 100%;
   }
 }
 

@@ -13,6 +13,14 @@
     .then(() => console.log('Service Worker registered'))
     .catch((error) => console.error('Service Worker registration failed:', error));
 }
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/firebase-messaging-sw.js')
+      .then((reg) => {
+        console.log("✅ Service Worker registered", reg);
+      }).catch((err) => {
+        console.error("❌ SW registration failed", err);
+      });
+  }
   </script>
 </head>
 <body>
@@ -20,7 +28,6 @@
     <div id="sidebar" class="sidebar">
       <div class="toggle-wrapper">
         <div class="sidebar-heading">Dashboard</div>
-        <button id="toggleBtn" class="toggle-btn">✖</button>
       </div>
       
       <nav class="nav-links">
@@ -30,11 +37,10 @@
       </nav>
     </div>
 
+
     <div class="main-content">
         <div class="header" id="header">
-          <div class="search">
-            <input type="search" id="search" name="search" placeholder="Search..." />
-          </div>
+          <button id="toggleBtn" class="toggle-btn">✖</button>
           <div class="profile-container">
             <img src="assets/notification.png" width="20px" height="20px">
             <img src="assets/profile.png" class="dp">

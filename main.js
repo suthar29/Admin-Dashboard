@@ -12,6 +12,7 @@ toggleBtn.addEventListener('click', () => {
   updateToggleIcon();
 });
 
+
 document.addEventListener("DOMContentLoaded", () => {
   const contentArea = document.getElementById("content");
 
