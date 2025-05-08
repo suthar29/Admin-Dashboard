@@ -5,7 +5,6 @@
   <title>Dashboard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
-  <link rel="stylesheet" href="style.css">
   <link rel="manifest" href="manifest.json" />
   <script>
    if ('serviceWorker' in navigator) {
@@ -16,7 +15,7 @@
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('firebase-messaging-sw.js')
       .then((reg) => {
-        console.log("✅ Service Worker registered", reg);
+        console.log("✅ Service Worker registered");
       }).catch((err) => {
         console.error("❌ SW registration failed", err);
       });
