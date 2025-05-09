@@ -1,6 +1,7 @@
 // firebase-messaging-sw.js
-importScripts("https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js");
-importScripts("https://www.gstatic.com/firebasejs/10.8.1/firebase-messaging-compat.js");
+// Add cache-busting parameter
+importScripts(`https://www.gstatic.com/firebasejs/11.6.0/firebase-app-compat.js?${Date.now()}`);
+importScripts(`https://www.gstatic.com/firebasejs/11.6.0/firebase-messaging-compat.js?${Date.now()}`);
 
 firebase.initializeApp({
   apiKey: "AIzaSyDXZM4rY5XrsWwqPKKZrhzCJm7umoOsGRA",
