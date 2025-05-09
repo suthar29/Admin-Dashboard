@@ -27,7 +27,7 @@ const UPLOAD_PRESET = 'my_unsigned_preset';
 async function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
     try {
-      const registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js');
+      const registration = await navigator.serviceWorker.register('./firebase-messaging-sw.js');
       console.log('ServiceWorker registration successful');
       return registration;
     } catch (err) {
@@ -67,11 +67,11 @@ onMessage(messaging, async (payload) => {
   
   registration.showNotification(title, {
     body: `${name}: ${message}`,
-    icon: '/assets/notification-icon.png',
+    icon: './assets/notification-icon.png',
     actions: [
-      { action: 'whatsapp', title: 'WhatsApp', icon: '/assets/whatsapp.png' },
-      { action: 'phone', title: 'Call', icon: '/assets/telephone.png' },
-      { action: 'email', title: 'Email', icon: '/assets/email.png' }
+      { action: 'whatsapp', title: 'WhatsApp', icon: './assets/whatsapp.png' },
+      { action: 'phone', title: 'Call', icon: './assets/telephone.png' },
+      { action: 'email', title: 'Email', icon: './assets/email.png' }
     ],
     data: {
       whatsapp: payload.data?.whatsapp || "https://wa.me/1234567890",
@@ -122,7 +122,7 @@ async function listenForNewQueries() {
               if (Notification.permission === "granted") {
                 new Notification(`New message from ${name}`, {
                   body: message,
-                  icon: "/assets/query.png"
+                  icon: "./assets/query.png"
                 });
               }
             }
