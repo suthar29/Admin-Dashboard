@@ -96,7 +96,7 @@ async function listenForNewQueries() {
         if (change.type === "added" && change.doc.id !== lastDocId) {
           if (!isFirstRun) {
             const name = docData.name || "New User";
-            const message = docData.message || "A new user submitted their information";
+            const message = docData.query || "A new user submitted their information";
             const phone = docData.phone || docData.phoneNumber || "";
             const email = docData.email || docData.emailAddress || "";
             

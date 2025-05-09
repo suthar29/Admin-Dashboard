@@ -20,7 +20,7 @@ messaging.onBackgroundMessage((payload) => {
   
   const title = payload.data?.title || "New Contact Request";
   const name = payload.data?.name || "Anonymous";
-  const message = payload.data?.message || "No message provided";
+  const message = payload.data?.query || "No message provided";
   const whatsapp = payload.data?.whatsapp || "https://wa.me/1234567890";
   const phone = payload.data?.phone || "tel:1234567890";
   const email = payload.data?.email || "mailto:someone@example.com";
