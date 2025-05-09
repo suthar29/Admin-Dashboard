@@ -27,7 +27,10 @@ const UPLOAD_PRESET = 'my_unsigned_preset';
 async function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
     try {
-      const registration = await navigator.serviceWorker.register('./firebase-messaging-sw.js');
+      const registration = await navigator.serviceWorker.register(
+        './firebase-messaging-sw.js', // Relative path
+        { scope: './' } // Limit scope to current directory
+      );
       console.log('ServiceWorker registration successful');
       return registration;
     } catch (err) {
