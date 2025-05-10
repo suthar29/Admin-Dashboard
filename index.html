@@ -2,17 +2,18 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Dashboard</title>
+  <title>My Dashboard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
   <link rel="stylesheet" href="./style.css">
   <link rel="manifest" href="./manifest.json" />
   <script>
    if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./service-worker.js')
-    .then(() => console.log('Service Worker registered'))
-    .catch((error) => console.error('Service Worker registration failed:', error));
-}
+    const basePath = window.location.pathname.replace(/\/[^\/]*$/, '/');
+    navigator.serviceWorker.register('./service-worker.js')
+      .then(() => console.log('Service Worker registered'))
+      .catch((error) => console.error('Service Worker registration failed:', error));
+   }
   </script>
 </head>
 <body>
@@ -49,8 +50,7 @@
     <button id="installBtn">Install</button>
     <button id="cancelBtn">No, thanks</button>
   </div>
-  <script src="main.js"></script>
-  <script src="dist/bundle.js"></script>
-  <script src="./js_components/firebase-configuration.js"></script>
+  <script src="./main.js"></script>
+  <script src="./dist/bundle.js"></script>
 </body>
 </html>

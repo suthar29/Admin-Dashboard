@@ -21,16 +21,16 @@ const messaging = getMessaging(app);
 
 const CLOUD_NAME = 'dqhroqlaa';
 const UPLOAD_PRESET = 'my_unsigned_preset';
-//const VAPID_KEY = "BOvoqZNfVjeNAF6D_P5MV24J7j3qQ5bS_clo5wYjs1J3DwYnzc2P54t_ZUR5fP3QwG_gaOwIeTOs_N_7TG4imBA";
 
 // Add to firebase-config.js
 async function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
     try {
-      const registration = await navigator.serviceWorker.register(
-        './firebase-messaging-sw.js', // Relative path
-        { scope: './' } // Limit scope to current directory
-      );
+      // Get the base URL for the current GitHub Pages repository
+      const baseUrl = window.location.pathname.replace(/\/[^\/]*$/, '/');
+      const swPath = './firebase-messaging-sw.js';
+      
+      const registration = await navigator.serviceWorker.register(swPath);
       console.log('ServiceWorker registration successful');
       return registration;
     } catch (err) {
@@ -48,10 +48,15 @@ async function requestPermission() {
   const permission = await Notification.requestPermission();
   if(permission === "granted"){
     console.log("You granted for the notification");
-    const token = await getToken(messaging, { 
-      vapidKey: "BOvoqZNfVjeNAF6D_P5MV24J7j3qQ5bS_clo5wYjs1J3DwYnzc2P54t_ZUR5fP3QwG_gaOwIeTOs_N_7TG4imBA"
-    });
-    console.log('✅ FCM Token:', token);
+    try {
+      const token = await getToken(messaging, { 
+        vapidKey: "BOvoqZNfVjeNAF6D_P5MV24J7j3qQ5bS_clo5wYjs1J3DwYnzc2P54t_ZUR5fP3QwG_gaOwIeTOs_N_7TG4imBA",
+        serviceWorkerRegistration: await navigator.serviceWorker.getRegistration('./firebase-messaging-sw.js')
+      });
+      console.log('✅ FCM Token:', token);
+    } catch (error) {
+      console.error('Error getting token:', error);
+    }
   } else if(permission === "denied"){
     console.log("you denied for the notification");
   }
@@ -83,6 +88,7 @@ onMessage(messaging, async (payload) => {
     }
   });
 });
+
 // Real-time Firestore listener for new users
 async function listenForNewQueries() {
   const usersRef = collection(db, "users");

@@ -1,7 +1,6 @@
 // firebase-messaging-sw.js
-// Add cache-busting parameter
-importScripts(`https://www.gstatic.com/firebasejs/11.6.0/firebase-app-compat.js?${Date.now()}`);
-importScripts(`https://www.gstatic.com/firebasejs/11.6.0/firebase-messaging-compat.js?${Date.now()}`);
+importScripts("https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js");
+importScripts("https://www.gstatic.com/firebasejs/10.8.1/firebase-messaging-compat.js");
 
 firebase.initializeApp({
   apiKey: "AIzaSyDXZM4rY5XrsWwqPKKZrhzCJm7umoOsGRA",
@@ -17,7 +16,7 @@ const messaging = firebase.messaging();
 
 // Handle background messages from FCM
 messaging.onBackgroundMessage((payload) => {
-  console.log('[./firebase-messaging-sw.js] Received background message ', payload);
+  console.log('[firebase-messaging-sw.js] Received background message ', payload);
   
   const title = payload.data?.title || "New Contact Request";
   const name = payload.data?.name || "Anonymous";
@@ -109,7 +108,7 @@ self.addEventListener('notificationclick', function(event) {
       url = data.email;
       break;
     default:
-      url = '/';
+      url = './';
   }
   
   event.waitUntil(clients.openWindow(url));
