@@ -41,11 +41,6 @@ sidebarLinks.forEach(link => {
   });
 });
 
-/*
-toggleBtn.addEventListener('click', () => {
-  sidebar.classList.toggle('collapsed');
-  updateToggleIcon();
-});*/
 
 
 document.addEventListener("DOMContentLoaded", () => {
