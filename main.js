@@ -2,11 +2,7 @@
 const toggleBtn = document.getElementById('toggleBtn');
 const sidebar = document.getElementById('sidebar');
 const overlay = document.getElementById('overlay');
-/*
-function updateToggleIcon() {
-  const isCollapsed = sidebar.classList.contains('collapsed');
-  toggleBtn.textContent = isCollapsed ? '☰' : '✖';
-}*/
+const sidebarLinks = document.querySelectorAll('.nav-links a');
 
 function toggleSidebar() {
   const isCollapsed = sidebar.classList.toggle('collapsed');
@@ -33,6 +29,17 @@ document.addEventListener('DOMContentLoaded', () => {
   toggleBtn.textContent = '☰';
 });
  }
+
+ // Hide sidebar when a nav link is clicked (on mobile only)
+sidebarLinks.forEach(link => {
+  link.addEventListener('click', () => {
+    if (window.innerWidth <= 768) {
+      sidebar.classList.add('collapsed');
+      overlay.classList.remove('active');
+      toggleBtn.textContent = '☰';
+    }
+  });
+});
 
 /*
 toggleBtn.addEventListener('click', () => {
