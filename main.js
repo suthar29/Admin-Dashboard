@@ -1,16 +1,44 @@
 //import { messaging, getToken } from './js_components/firebase_configuration.js';
 const toggleBtn = document.getElementById('toggleBtn');
 const sidebar = document.getElementById('sidebar');
-
+const overlay = document.getElementById('overlay');
+/*
 function updateToggleIcon() {
   const isCollapsed = sidebar.classList.contains('collapsed');
   toggleBtn.textContent = isCollapsed ? '☰' : '✖';
+}*/
+
+function toggleSidebar() {
+  const isCollapsed = sidebar.classList.toggle('collapsed');
+  overlay.classList.toggle('active', !isCollapsed);
+
+  // Update icon
+  toggleBtn.textContent = isCollapsed ? '☰' : '✖';
 }
 
+// Toggle on button click
+toggleBtn.addEventListener('click', toggleSidebar);
+
+// Hide sidebar and overlay on overlay click (mobile)
+overlay.addEventListener('click', () => {
+  sidebar.classList.add('collapsed');
+  overlay.classList.remove('active');
+  toggleBtn.textContent = '☰';
+});
+
+// Initial state
+ if (window.innerWidth <= 768) {
+document.addEventListener('DOMContentLoaded', () => {
+  sidebar.classList.add('collapsed');
+  toggleBtn.textContent = '☰';
+});
+ }
+
+/*
 toggleBtn.addEventListener('click', () => {
   sidebar.classList.toggle('collapsed');
   updateToggleIcon();
-});
+});*/
 
 
 document.addEventListener("DOMContentLoaded", () => {
